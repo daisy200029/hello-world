@@ -11,18 +11,18 @@
     <pathelement location="${junit.jar}"/>
   </path>
 
-  <target name="init">
+  <target name="init" description="init some directories">
 
     <mkdir dir="${output}"/>
     <mkdir dir="${output.classes}"/>
 
   </target>
 
-  <target name="clean" depends="init">
+  <target name="clean" depends="init" description="clean output">
     <delete dir="build"/>
   </target>
 
-  <target name="compile" depends="init">
+  <target name="compile" depends="init" description="compile main classes">
 
     <javac srcdir="src/main/java" destdir="${output.classes}" encoding="UTF-8" source="1.5" target="1.5" debug="true"
            includeAntRuntime="true">
@@ -32,7 +32,7 @@
   </target>
 
 
-  <target name="compile-test" depends="init,compile">
+  <target name="compile-test" depends="init,compile" description="compile test classes">
 
     <javac srcdir="${src.tests}" destdir="${output.classes}" encoding="UTF-8" source="1.5" target="1.5" debug="true"
            includeAntRuntime="true">
@@ -41,7 +41,7 @@
 
   </target>
 
-  <target name="run-tests" depends="init,compile-test">
+  <target name="run-tests" depends="init,compile-test" description="run unit tests">
     <junit haltonerror="false" haltonfailure="true" printsummary="on">
       <classpath refid="test.classpath"/>
 
@@ -55,7 +55,7 @@
 
   </target>
 
-  <target name="package" depends="init, compile">
+  <target name="package" depends="init, compile" description="package in jar file">
     <jar destfile="${output}/hello-world.jar" basedir="${output.classes}" manifest="./MANIFEST.MF">
 
     </jar>
