@@ -1,18 +1,20 @@
 <project name="hello world sample" default="jar">
 
   <property name="output" value="build"/>
+  <property name="output.classes" value="${output}/classes"/>
+
   <property name="junit.jar" value="lib/junit-3.8.1.jar"/>
   <property name="src.tests" value="src/test/java"/>
 
   <path id="test.classpath">
-    <pathelement location="${output}"/>
+    <pathelement location="${output.classes}"/>
     <pathelement location="${junit.jar}"/>
   </path>
 
   <target name="init">
 
     <mkdir dir="${output}"/>
-
+    <mkdir dir="${output.classes}"/>
 
   </target>
 
@@ -22,7 +24,7 @@
 
   <target name="compile" depends="init">
 
-    <javac srcdir="src/main/java" destdir="${output}" encoding="UTF-8" source="1.5" target="1.5" debug="true"
+    <javac srcdir="src/main/java" destdir="${output.classes}" encoding="UTF-8" source="1.5" target="1.5" debug="true"
            includeAntRuntime="true">
 
     </javac>
@@ -32,7 +34,7 @@
 
   <target name="compile-test" depends="init,compile">
 
-    <javac srcdir="${src.tests}" destdir="${output}" encoding="UTF-8" source="1.5" target="1.5" debug="true"
+    <javac srcdir="${src.tests}" destdir="${output.classes}" encoding="UTF-8" source="1.5" target="1.5" debug="true"
            includeAntRuntime="true">
       <classpath refid="test.classpath"/>
     </javac>
@@ -51,8 +53,12 @@
 
     </junit>
 
+  </target>
 
+  <target name="package" depends="init, compile">
+    <jar destfile="${output}/hello-world.jar" basedir="${output.classes}" manifest="./MANIFEST.MF">
 
+    </jar>
   </target>
 
 

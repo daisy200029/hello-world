@@ -25,7 +25,7 @@ public class HelloWorld
 
     public static void main( String[] args )
     {
-        HelloWorld helloWorld = new HelloWorld( args[0] );
+        HelloWorld helloWorld = new HelloWorld( args.length > 0 ? args[0] : null );
         System.out.println( helloWorld.sayHello() );
     }
 }
