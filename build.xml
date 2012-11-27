@@ -1,13 +1,59 @@
 <project name="hello world sample" default="jar">
 
-  <target name="init-props">
-    <property name="output" value="build"/>
+  <property name="output" value="build"/>
+  <property name="junit.jar" value="lib/junit-3.8.1.jar"/>
+  <property name="src.tests" value="src/test/java"/>
+
+  <path id="test.classpath">
+    <pathelement location="${output}"/>
+    <pathelement location="${junit.jar}"/>
+  </path>
+
+  <target name="init">
+
+    <mkdir dir="${output}"/>
+
+
   </target>
 
-  <target name="clean" depends="init-props">
+  <target name="clean" depends="init">
     <delete dir="build"/>
   </target>
-  <target name="compile" depends="init-props">
+
+  <target name="compile" depends="init">
+
+    <javac srcdir="src/main/java" destdir="${output}" encoding="UTF-8" source="1.5" target="1.5" debug="true"
+           includeAntRuntime="true">
+
+    </javac>
 
   </target>
+
+
+  <target name="compile-test" depends="init,compile">
+
+    <javac srcdir="${src.tests}" destdir="${output}" encoding="UTF-8" source="1.5" target="1.5" debug="true"
+           includeAntRuntime="true">
+      <classpath refid="test.classpath"/>
+    </javac>
+
+  </target>
+
+  <target name="run-tests" depends="init,compile-test">
+    <junit haltonerror="false" haltonfailure="true" printsummary="on">
+      <classpath refid="test.classpath"/>
+
+      <batchtest fork="yes">
+        <fileset dir="${src.tests}">
+          <include name="**/*Test*.java"/>
+        </fileset>
+      </batchtest>
+
+    </junit>
+
+
+
+  </target>
+
+
 </project>
