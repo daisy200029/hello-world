@@ -1,0 +1,13 @@
+<project name="hello world sample" default="jar">
+
+  <target name="init-props">
+    <property name="output" value="build"/>
+  </target>
+
+  <target name="clean" depends="init-props">
+    <delete dir="build"/>
+  </target>
+  <target name="compile" depends="init-props">
+
+  </target>
+</project>
