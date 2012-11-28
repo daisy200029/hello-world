@@ -46,3 +46,68 @@
     </plugins>
   </build>
 </project>
+
+    <!-- inheritence -->
+    <!--
+parent:
+
+<configuration>
+  <items>
+    <item>parent-1</item>
+    <item>parent-2</item>
+  </items>
+  <properties>
+    <parentKey>parent</parentKey>
+  </properties>
+</configuration>
+
+child:
+
+<configuration>
+  <items>
+    <item>child-1</item>
+  </items>
+  <properties>
+    <childKey>child</childKey>
+  </properties>
+</configuration>
+
+result:
+
+<configuration>
+  <items>
+    <item>child-1</item>
+  </items>
+  <properties>
+    <childKey>child</childKey>
+    <parentKey>parent</parentKey>
+  </properties>
+</configuration>
+
+
+now:
+
+<configuration>
+  <items combine.children="append">
+    <item>child-1</item>
+  </items>
+  <properties combine.self="override">
+    <childKey>child</childKey>
+  </properties>
+</configuration>
+
+result:
+
+<configuration>
+  <items combine.children="append">
+    <item>parent-1</item>
+    <item>parent-2</item>
+    <item>child-1</item>
+  </items>
+  <properties combine.self="override">
+    <childKey>child</childKey>
+  </properties>
+</configuration>
+
+
+    -->
